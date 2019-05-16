@@ -2,6 +2,9 @@ package ru.ttv.patterns;
 
 import ru.ttv.patterns.datamapper.ContractIdentityMap;
 import ru.ttv.patterns.datamapper.ContractMapper;
+import ru.ttv.patterns.mvc.Controller;
+import ru.ttv.patterns.mvc.HtmlView;
+import ru.ttv.patterns.mvc.Model;
 import ru.ttv.patterns.observer.ContractLoader;
 import ru.ttv.patterns.observer.DBObserver;
 import ru.ttv.patterns.observer.UserObserver;
@@ -40,6 +43,10 @@ public class App
         ContractIdentityMap contractIdentityMap = new ContractIdentityMap(new ContractMapper(connection));
         List<Contract> contractList = contractIdentityMap.getAllContracts();
         Contract contract1 = contractIdentityMap.getByID(10);
+
+        //MVC
+        Controller controller = new Controller(new Model(),new HtmlView());
+        System.out.println(controller.action("Name","Viktor"));
 
     }
 }
