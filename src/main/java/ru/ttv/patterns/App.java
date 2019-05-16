@@ -1,11 +1,16 @@
 package ru.ttv.patterns;
 
+import ru.ttv.patterns.datamapper.ContractIdentityMap;
+import ru.ttv.patterns.datamapper.ContractMapper;
 import ru.ttv.patterns.observer.ContractLoader;
 import ru.ttv.patterns.observer.DBObserver;
 import ru.ttv.patterns.observer.UserObserver;
 import ru.ttv.patterns.provider.LoadProvider;
 import ru.ttv.patterns.provider.UnloadProvider;
 import ru.ttv.patterns.provider.ValidateProvider;
+
+import java.sql.Connection;
+import java.util.List;
 
 /**
  * Hello world!
@@ -29,6 +34,12 @@ public class App
         contractLoader.attach(new UserObserver());
         contractLoader.attach(new DBObserver());
         contractLoader.load();
+
+        //Contract mapper, identity map
+        Connection connection = null;
+        ContractIdentityMap contractIdentityMap = new ContractIdentityMap(new ContractMapper(connection));
+        List<Contract> contractList = contractIdentityMap.getAllContracts();
+        Contract contract1 = contractIdentityMap.getByID(10);
 
     }
 }
